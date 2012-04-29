@@ -62,6 +62,7 @@ void setup(int argc, char *argv[])
 //	fragFileName.append("/source/sample2d.frag");
 	string vertFileName("sample3d.vert");
 	string fragFileName("sample3d.frag");
+	tx = ty = tz = axis = 0.0;
 
 	glutInit( &argc, argv );
 	glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH );
@@ -102,6 +103,8 @@ void setup(int argc, char *argv[])
 
 	// Callbacks
 	glutDisplayFunc( myDraw );
+	glutKeyboardFunc( keyboard );
+	glutSpecialFunc( specialKeyFunc );
 
 	// Main loop
 	glutMainLoop();
@@ -123,26 +126,77 @@ void myDraw(void)
 //  cout << dr->getY() << endl;
   // Draw polygon with data dimensions
   glBegin( GL_POLYGON );
-  glTexCoord3f( 0.0, 0.0, 0.5 );
+  glTexCoord3f( 0.0, 0.0, tz );
   glVertex3f( 0.0, 0.0, 0.0 );
-  glTexCoord3f( 1.0, 0.0, 0.5 );
+  glTexCoord3f( 1.0, 0.0, tz );
   glVertex3f( dr->getX()-1, 0.0, 0.0 );
-  glTexCoord3f( 1.0, 1.0, 0.5 );
+  glTexCoord3f( 1.0, 1.0, tz );
   glVertex3f( dr->getX()-1, dr->getY()-1, 0.0 );
-  glTexCoord3f( 0.0, 1.0, 0.5 );
+  glTexCoord3f( 0.0, 1.0, tz );
   glVertex3f( 0.0, dr->getY()-1, 0.0 );
   glEnd();
 
   // Swap buffers
   glutSwapBuffers();
 }
-/*
- * project4.cpp
- *
- *  Created on: Apr 29, 2012
- *      Author: pyridoxus
- */
 
+void keyboard( unsigned char key, int x, int y )
+{
+	switch(key)
+	{
+		case 'x':
+		case 'X':
+			axis = 2;	// view yz plane (move along x)
+		break;
+		case 'y':
+		case 'Y':
+			axis = 1;	// view xz plane (move along y)
+		break;
+		case 'z':
+		case 'Z':
+			axis = 0;	// view xy plane (move along z)
+		break;
+		case 'q':
+			exit(1);
+		break;
+	}
+	// Redraw the scene
+  glutPostRedisplay();
+	return;
+}
 
-
-
+void specialKeyFunc( int key, int x, int y )
+{
+	double a;
+	switch(key)
+	{
+		case GLUT_KEY_DOWN:
+			a = -0.01;
+		break;
+		case GLUT_KEY_UP:
+			a = 0.01;
+		break;
+	}
+	switch(axis)
+	{
+		case 2:
+			tx += a;
+			if(tx < 0.0) tx = 0.0;
+			if(tx > 1.0) tx = 1.0;
+		break;
+		case 1:
+			ty += a;
+			if(ty < 0.0) ty = 0.0;
+			if(ty > 1.0) ty = 1.0;
+		break;
+		case 0:
+			tz += a;
+			if(tz < 0.0) tz = 0.0;
+			if(tz > 1.0) tz = 1.0;
+		break;
+	}
+	cout << "tx: " << tx << " ty: " << ty << " tz: " << tz << endl;
+	// Redraw the scene
+  glutPostRedisplay();
+	return;
+}

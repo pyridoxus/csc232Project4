@@ -169,13 +169,3 @@ namespace DataFileReader
 //		return this->colors[128];
 	}
 } /* namespace DataFileReader */
-/*
- * DataReader.cpp
- *
- *  Created on: Apr 29, 2012
- *      Author: pyridoxus
- */
-
-
-
-

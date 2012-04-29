@@ -106,6 +106,13 @@ void setup(int argc, char *argv[])
 	glutKeyboardFunc( keyboard );
 	glutSpecialFunc( specialKeyFunc );
 
+	glutCreateMenu( menu );
+	glutAddMenuEntry( "View XY plane (or 'z' key)", 0 );
+	glutAddMenuEntry( "View XZ plane (or 'y' key)", 1 );
+	glutAddMenuEntry( "View YZ plane (or 'x' key)", 2 );
+	glutAddMenuEntry( "Quit (or 'q' key)", 3 );
+	glutAttachMenu( GLUT_RIGHT_BUTTON );
+
 	// Main loop
 	glutMainLoop();
 
@@ -195,8 +202,27 @@ void specialKeyFunc( int key, int x, int y )
 			if(tz > 1.0) tz = 1.0;
 		break;
 	}
-	cout << "tx: " << tx << " ty: " << ty << " tz: " << tz << endl;
+	cout << "Axis: " << axis << " tx: " << tx << " ty: ";
+	cout << ty << " tz: " << tz << endl;
 	// Redraw the scene
+  glutPostRedisplay();
+	return;
+}
+
+void menu( int value )
+{
+	switch(value)
+	{
+		case 0:
+		case 1:
+		case 2:
+			axis = value;
+		break;
+		case 3:
+			exit(1);
+		break;
+	}
+  // Redraw the scene
   glutPostRedisplay();
 	return;
 }

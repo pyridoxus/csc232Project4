@@ -15,6 +15,10 @@ GLubyte *texels;
 DataReader *dr;
 double tx, ty, tz;
 int axis;
+float fov = 30.0;
+float aspect = 1.333;
+float nearClip = 0.01;
+float farClip = 10000.0;
 
 GLubyte *buildTexture();
 // Callback function

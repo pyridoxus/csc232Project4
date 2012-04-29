@@ -66,7 +66,8 @@ void setup(int argc, char *argv[])
 
 	glutInit( &argc, argv );
 	glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH );
-	glutInitWindowSize( 400, 300 );
+	glutInitWindowSize( 800, 600 );
+
 	glutCreateWindow( "Craig McCulloch's Project 4" );
 
 	// Resolves which OpenGL extensions are supported by hardware
@@ -76,9 +77,15 @@ void setup(int argc, char *argv[])
 	}
 
 	// Orthographic projection
+	// Projection
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
-	gluOrtho2D( 0.0, float(dr->getX()-1), 0.0, float(dr->getY()-1) );
+	gluPerspective( fov, aspect, nearClip, farClip );
+	gluLookAt(0.0, 2.0, -5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0 );
+	// Viewing
+	glMatrixMode( GL_MODELVIEW );
+	glLoadIdentity();
+//	glTranslatef( 0, 0, -15 );
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity();
 
@@ -136,11 +143,11 @@ void myDraw(void)
   glTexCoord3f( 0.0, 0.0, tz );
   glVertex3f( 0.0, 0.0, 0.0 );
   glTexCoord3f( 1.0, 0.0, tz );
-  glVertex3f( dr->getX()-1, 0.0, 0.0 );
+  glVertex3f( 1.0, 0.0, 0.0 );
   glTexCoord3f( 1.0, 1.0, tz );
-  glVertex3f( dr->getX()-1, dr->getY()-1, 0.0 );
+  glVertex3f( 1.0, 1.0, 0.0 );
   glTexCoord3f( 0.0, 1.0, tz );
-  glVertex3f( 0.0, dr->getY()-1, 0.0 );
+  glVertex3f( 0.0, 1.0, 0.0 );
   glEnd();
 
   // Swap buffers

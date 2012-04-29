@@ -81,10 +81,11 @@ void setup(int argc, char *argv[])
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
 	gluPerspective( fov, aspect, nearClip, farClip );
-	gluLookAt(0.0, 2.0, -5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0 );
+	gluLookAt(1.7, 1.5, 2.3, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0 );
 	// Viewing
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity();
+	glTranslatef(-0.5, -0.5, -0.7);
 
 	// Specify 3D RGBA texture
 	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
@@ -238,7 +239,7 @@ void menu( int value )
 void drawCage(void)
 {
 	glUseProgram( 0 );
-	glLineWidth(0.5);
+	glLineWidth(0.0);
 	glColor3f( 1.0, 1.0, 1.0);
 	glEnable (GL_LINE_SMOOTH);
 	glBegin( GL_LINE_LOOP );

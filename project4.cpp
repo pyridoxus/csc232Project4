@@ -85,9 +85,6 @@ void setup(int argc, char *argv[])
 	// Viewing
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity();
-//	glTranslatef( 0, 0, -15 );
-	glMatrixMode( GL_MODELVIEW );
-	glLoadIdentity();
 
 	// Specify 3D RGBA texture
 	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
@@ -138,17 +135,21 @@ void myDraw(void)
 //  glColor3f(1.0, 0.5, 0.25);
 //  cout << dr->getX() << endl;
 //  cout << dr->getY() << endl;
+
   // Draw polygon with data dimensions
+  glUseProgram( shaderProgram1 );
   glBegin( GL_POLYGON );
   glTexCoord3f( 0.0, 0.0, tz );
-  glVertex3f( 0.0, 0.0, 0.0 );
+  glVertex3f( 0.0, 0.0, tz );
   glTexCoord3f( 1.0, 0.0, tz );
-  glVertex3f( 1.0, 0.0, 0.0 );
+  glVertex3f( 1.0, 0.0, tz );
   glTexCoord3f( 1.0, 1.0, tz );
-  glVertex3f( 1.0, 1.0, 0.0 );
+  glVertex3f( 1.0, 1.0, tz );
   glTexCoord3f( 0.0, 1.0, tz );
-  glVertex3f( 0.0, 1.0, 0.0 );
+  glVertex3f( 0.0, 1.0, tz );
   glEnd();
+
+  drawCage();
 
   // Swap buffers
   glutSwapBuffers();
@@ -231,5 +232,43 @@ void menu( int value )
 	}
   // Redraw the scene
   glutPostRedisplay();
+	return;
+}
+
+void drawCage(void)
+{
+	glUseProgram( 0 );
+	glLineWidth(0.5);
+	glColor3f( 1.0, 1.0, 1.0);
+	glEnable (GL_LINE_SMOOTH);
+	glBegin( GL_LINE_LOOP );
+	glVertex3f( 0.0, 0.0, 0.0 );
+	glVertex3f( 1.0, 0.0, 0.0 );
+	glVertex3f( 1.0, 1.0, 0.0 );
+	glVertex3f( 0.0, 1.0, 0.0 );
+	glEnd();
+	glBegin( GL_LINE_LOOP );
+	glVertex3f( 0.0, 0.0, 1.0 );
+	glVertex3f( 1.0, 0.0, 1.0 );
+	glVertex3f( 1.0, 1.0, 1.0 );
+	glVertex3f( 0.0, 1.0, 1.0 );
+	glEnd();
+	glBegin( GL_LINES );
+	glVertex3f( 0.0, 0.0, 0.0 );
+	glVertex3f( 0.0, 0.0, 1.0 );
+	glVertex3f( 1.0, 0.0, 0.0 );
+	glVertex3f( 1.0, 0.0, 1.0 );
+	glVertex3f( 1.0, 1.0, 0.0 );
+	glVertex3f( 1.0, 1.0, 1.0 );
+	glVertex3f( 0.0, 1.0, 0.0 );
+	glVertex3f( 0.0, 1.0, 1.0 );
+	glEnd();
+	// Border around the slice
+	glBegin( GL_LINE_LOOP );
+	glVertex3f( 0.0, 0.0, tz );
+	glVertex3f( 1.0, 0.0, tz );
+	glVertex3f( 1.0, 1.0, tz );
+	glVertex3f( 0.0, 1.0, tz );
+	glEnd();
 	return;
 }

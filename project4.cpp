@@ -11,8 +11,10 @@ int main( int argc, char *argv[] )
 //	dataFileName.append("Elevation.bin");
 //	colorFileName.append("rainbow.pal");
 
-	string  dataFileName("Elevation.bin");
-	string  colorFileName("livingston.pal");
+//	string  dataFileName("Elevation.bin");
+//	string  colorFileName("livingston.pal");
+	string  dataFileName("BuckyBall.bin");
+	string  colorFileName("rainbow.pal");
 	cout << "Data file: " << dataFileName << endl;
 	cout << "Color file: " << colorFileName << endl;
 //	cout << "Setting up data reader" << endl;
@@ -121,13 +123,13 @@ void myDraw(void)
 //  cout << dr->getY() << endl;
   // Draw polygon with data dimensions
   glBegin( GL_POLYGON );
-  glTexCoord3f( 0.0, 0.0, 0.0 );
+  glTexCoord3f( 0.0, 0.0, 0.5 );
   glVertex3f( 0.0, 0.0, 0.0 );
-  glTexCoord3f( 1.0, 0.0, 0.0 );
+  glTexCoord3f( 1.0, 0.0, 0.5 );
   glVertex3f( dr->getX()-1, 0.0, 0.0 );
-  glTexCoord3f( 1.0, 1.0, 0.0 );
+  glTexCoord3f( 1.0, 1.0, 0.5 );
   glVertex3f( dr->getX()-1, dr->getY()-1, 0.0 );
-  glTexCoord3f( 0.0, 1.0, 0.0 );
+  glTexCoord3f( 0.0, 1.0, 0.5 );
   glVertex3f( 0.0, dr->getY()-1, 0.0 );
   glEnd();
 

@@ -79,15 +79,15 @@ void setup(int argc, char *argv[])
 	glMatrixMode( GL_MODELVIEW );
 	glLoadIdentity();
 
-	// Specify 2D RGBA texture
+	// Specify 3D RGBA texture
 	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
 	glGenTextures( (unsigned int)1, (unsigned int *)&texName );
-	glBindTexture( (unsigned int)GL_TEXTURE_2D, (unsigned int)texName );
+	glBindTexture( (unsigned int)GL_TEXTURE_3D, (unsigned int)texName );
 	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE );
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-	glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, dr->getX(), dr->getY(), 0, GL_RGBA,
-			GL_UNSIGNED_BYTE, texels );
+	glTexParameteri( GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+	glTexParameteri( GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+	glTexImage3D( GL_TEXTURE_3D, 0, GL_RGBA, dr->getX(), dr->getY(), dr->getZ(),
+			0, GL_RGBA, GL_UNSIGNED_BYTE, texels );
 
 	// Create shader program
 	shaderProgram1 = CreateProgram( vertFileName.c_str(), fragFileName.c_str() );

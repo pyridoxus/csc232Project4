@@ -140,14 +140,39 @@ void myDraw(void)
   // Draw polygon with data dimensions
   glUseProgram( shaderProgram1 );
   glBegin( GL_POLYGON );
-  glTexCoord3f( 0.0, 0.0, tz );
-  glVertex3f( 0.0, 0.0, tz );
-  glTexCoord3f( 1.0, 0.0, tz );
-  glVertex3f( 1.0, 0.0, tz );
-  glTexCoord3f( 1.0, 1.0, tz );
-  glVertex3f( 1.0, 1.0, tz );
-  glTexCoord3f( 0.0, 1.0, tz );
-  glVertex3f( 0.0, 1.0, tz );
+	switch(axis)
+	{
+		case 2:	// view yz plane (move along x)
+			glTexCoord3f( tx, 0.0, 0.0 );
+			glVertex3f( tx, 0.0, 0.0 );
+			glTexCoord3f( tx, 1.0, 0.0 );
+			glVertex3f( tx, 1.0, 0.0 );
+			glTexCoord3f( tx, 1.0, 1.0 );
+			glVertex3f( tx, 1.0, 1.0 );
+			glTexCoord3f( tx, 0.0, 1.0 );
+			glVertex3f( tx, 0.0, 1.0 );
+		break;
+		case 1:	// view xz plane (move along y)
+			glTexCoord3f( 0.0, ty, 0.0 );
+			glVertex3f( 0.0, ty, 0.0 );
+			glTexCoord3f( 1.0, ty, 0.0 );
+			glVertex3f( 1.0, ty, 0.0 );
+			glTexCoord3f( 1.0, ty, 1.0 );
+			glVertex3f( 1.0, ty, 1.0 );
+			glTexCoord3f( 0.0, ty, 1.0 );
+			glVertex3f( 0.0, ty, 1.0 );
+		break;
+		case 0:	// view xy plane (move along z)
+			glTexCoord3f( 0.0, 0.0, tz );
+			glVertex3f( 0.0, 0.0, tz );
+			glTexCoord3f( 1.0, 0.0, tz );
+			glVertex3f( 1.0, 0.0, tz );
+			glTexCoord3f( 1.0, 1.0, tz );
+			glVertex3f( 1.0, 1.0, tz );
+			glTexCoord3f( 0.0, 1.0, tz );
+			glVertex3f( 0.0, 1.0, tz );
+		break;
+	}
   glEnd();
 
   drawCage();
@@ -266,10 +291,27 @@ void drawCage(void)
 	glEnd();
 	// Border around the slice
 	glBegin( GL_LINE_LOOP );
-	glVertex3f( 0.0, 0.0, tz );
-	glVertex3f( 1.0, 0.0, tz );
-	glVertex3f( 1.0, 1.0, tz );
-	glVertex3f( 0.0, 1.0, tz );
+	switch(axis)
+	{
+		case 2:	// view yz plane (move along x)
+			glVertex3f( tx, 0.0, 0.0 );
+			glVertex3f( tx, 1.0, 0.0 );
+			glVertex3f( tx, 1.0, 1.0 );
+			glVertex3f( tx, 0.0, 1.0 );
+		break;
+		case 1:	// view xz plane (move along y)
+			glVertex3f( 0.0, ty, 0.0 );
+			glVertex3f( 1.0, ty, 0.0 );
+			glVertex3f( 1.0, ty, 1.0 );
+			glVertex3f( 0.0, ty, 1.0 );
+		break;
+		case 0:	// view xy plane (move along z)
+			glVertex3f( 0.0, 0.0, tz );
+			glVertex3f( 1.0, 0.0, tz );
+			glVertex3f( 1.0, 1.0, tz );
+			glVertex3f( 0.0, 1.0, tz );
+		break;
+	}
 	glEnd();
 	return;
 }

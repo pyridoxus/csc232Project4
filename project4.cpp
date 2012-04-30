@@ -13,7 +13,7 @@ int main( int argc, char *argv[] )
 
 //	string  dataFileName("Elevation.bin");
 //	string  colorFileName("livingston.pal");
-	string  dataFileName("BuckyBall.bin");
+	string  dataFileName("Head.bin");
 	string  colorFileName("rainbow.pal");
 	cout << "Data file: " << dataFileName << endl;
 	cout << "Color file: " << colorFileName << endl;
@@ -118,6 +118,7 @@ void setup(int argc, char *argv[])
 	glutAddMenuEntry( "Quit (or 'q' key)", 3 );
 	glutAttachMenu( GLUT_RIGHT_BUTTON );
 
+	showMenu();
 	// Main loop
 	glutMainLoop();
 
@@ -236,8 +237,8 @@ void specialKeyFunc( int key, int x, int y )
 			if(tz > 1.0) tz = 1.0;
 		break;
 	}
-	cout << "Axis: " << axis << " tx: " << tx << " ty: ";
-	cout << ty << " tz: " << tz << endl;
+//	cout << "Axis: " << axis << " tx: " << tx << " ty: ";
+//	cout << ty << " tz: " << tz << endl;
 	// Redraw the scene
   glutPostRedisplay();
 	return;
@@ -313,5 +314,19 @@ void drawCage(void)
 		break;
 	}
 	glEnd();
+	return;
+}
+
+void showMenu(void)
+{
+	cout << "Key\t" << "Action" << endl;
+	cout << "X\t" << "View YZ plane" << endl;
+	cout << "Y\t" << "View XZ plane" << endl;
+	cout << "Z\t" << "View XY plane" << endl;
+	cout << "Up\t" << "Move slicing plane in positive direction" << endl;
+	cout << "Down\t" << "Move slicing plane in negative direction" << endl;
+	cout << "Q\t" << "Quit" << endl;
+	cout << "Right mouse button accesses a popup menu." << endl;
+
 	return;
 }

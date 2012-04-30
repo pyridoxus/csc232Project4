@@ -28,5 +28,6 @@ void specialKeyFunc( int key, int x, int y );
 void menu( int );
 void drawCage(void);
 void setup(int argc, char *argv[]);
+void showMenu(void);
 
 #endif /* PROJECT4_H_ */
